@@ -3,7 +3,7 @@ from iqoptionapi.api import IQOptionAPI
 import iqoptionapi.constants as OP_code
 import iqoptionapi.country_id as Country
 import threading
-import time
+import time, json
 import logging
 import operator
 import iqoptionapi.global_value as global_value
@@ -77,7 +77,7 @@ class IQ_Option:
         self.SESSION_HEADER = header
         self.SESSION_COOKIE = cookie
 
-    def connect(self):
+    def connect(self, sms_code=None):
         try:
             self.api.close()
         except:
@@ -87,6 +87,14 @@ class IQ_Option:
         self.api = IQOptionAPI(
             "iqoption.com", self.email, self.password)
         check = None
+
+        # 2FA--
+        if sms_code is not None:
+            self.api.setTokenSMS(self.resp_sms)
+            status, reason = self.api.connect2fa(sms_code)
+            if not status:
+                return status, reason
+
         self.api.set_session(headers=self.SESSION_HEADER,
                              cookies=self.SESSION_COOKIE)
         check, reason = self.api.connect()
@@ -127,8 +135,20 @@ class IQ_Option:
             # self.get_balance_id()
             return True, None
         else:
+            if json.loads(reason)['code'] == 'verify':
+                response = self.api.send_sms_code(json.loads(reason)['token'])
+
+                if response.json()['code'] != 'success':
+                    return False, response.json()['message']
+
+                # token_sms
+                self.resp_sms = response
+                return False, "2FA"
             return False, reason
     # self.update_ACTIVES_OPCODE()
+
+    def connect_2fa(self, sms_code):
+        return self.connect(sms_code=sms_code)
 
     def check_connect(self):
         # True/False
