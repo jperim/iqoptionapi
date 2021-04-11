@@ -137,19 +137,19 @@ class Subscribe_live_deal(Base):
                 }
         self.send_websocket_request(self.name, data)
 
-class Subscribe_Digital_Price_Splitter(Base):
+class SubscribeDigitalPriceSplitter(Base):
     name = "subscribeMessage"
 
-    def __call__(self, instrument_index, asset_id):
+    def __call__(self, asset_id):
         data = {
             "name": "price-splitter.client-price-generated",
             "version": "1.0",
             "params": {
                 "routingFilters": {
                     "instrument_type": "digital-option",
-                    "asset_id": asset_id,
-                    "instrument_index": instrument_index
+                    "asset_id": int(asset_id)
                 }
             }
         }
-        self.send_websocket_request(self.name, msg=data) 
+
+        self.send_websocket_request(self.name, msg=data)
