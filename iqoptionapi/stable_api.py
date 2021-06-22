@@ -152,8 +152,9 @@ class IQ_Option:
 
     def check_connect(self):
         # True/False
-
-        if global_value.check_websocket_if_connect == 0:
+        # if not connected, sometimes it's None, sometimes its '0', so
+        # both will fall on this first case
+        if not global_value.check_websocket_if_connect:
             return False
         else:
             return True
@@ -1516,7 +1517,11 @@ class IQ_Option:
 
         self.api.subscribe_digital_price_splitter(asset_id)
 
-        while self.api.digital_payout is None:
+        time_max = 3
+        time_cnt = 0
+        while (self.api.digital_payout is None) and (time_cnt < time_max):
+            time.sleep(0.25)
+            time_cnt += 0.25
             pass
 
         self.api.unsubscribe_digital_price_splitter(asset_id)
