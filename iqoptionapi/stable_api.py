@@ -1512,22 +1512,20 @@ class IQ_Option:
             time.sleep(0.2)
         return self.api.users_availability
 
-    def get_digital_payout(self, active):
+    def get_digital_payout(self, active, seconds=3):
         self.api.digital_payout = None
         asset_id = OP_code.ACTIVES[active]
 
         self.api.subscribe_digital_price_splitter(asset_id)
 
-        time_max = 3
-        time_cnt = 0
-        while (self.api.digital_payout is None) and (time_cnt < time_max):
-            time.sleep(0.25)
-            time_cnt += 0.25
-            pass
+        start = time.time()
+        while self.api.digital_payout is None:
+            if seconds and int(time.time() - start) > seconds:
+                break
 
         self.api.unsubscribe_digital_price_splitter(asset_id)
 
-        return self.api.digital_payout
+        return self.api.digital_payout if self.api.digital_payout else 0
 
     def logout(self):
         self.api.logout()
