@@ -484,9 +484,10 @@ class IQ_Option:
 # _______________________        CANDLE      _____________________________
 # ________________________self.api.getcandles() wss________________________
 
-    def get_candles(self, ACTIVES, interval, count, endtime):
+    def get_candles(self, ACTIVES, interval, count, endtime, maxerror = 0):
         self.api.candles.candles_data = None
-        while True:
+        counterror = 0
+        while (maxerror == 0) or (counterror <= maxerror):
             try:
                 self.api.getcandles(
                     OP_code.ACTIVES[ACTIVES], interval, count, endtime)
@@ -497,7 +498,9 @@ class IQ_Option:
             except:
                 logging.error('**error** get_candles need reconnect')
                 self.connect()
-
+                counterror += 1
+        if (counterror > maxerror) and (self.api.candles.candles_data == None):
+            raise Exception('**error** get_candles need reconnect')
         return self.api.candles.candles_data
 #######################################################
 # ______________________________________________________
