@@ -27,7 +27,6 @@ class Digital_options_place_digital_option(Base):
         request_id = str(randint(0, 100000))
         self.send_websocket_request(self.name, data, request_id)
         return request_id
-        # self.send_websocket_request(self.name, data)
 
 
 class Digital_options_close_position(Base):
@@ -42,6 +41,7 @@ class Digital_options_close_position(Base):
             }
         }
         self.send_websocket_request(self.name, data)
+
 
 class DigitalOptionsPlaceDigitalOptionV2(Base):
     name = "sendMessage"
