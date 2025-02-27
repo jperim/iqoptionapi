@@ -8,12 +8,12 @@ import requests
 import ssl
 import atexit
 from collections import deque
-from iqoptionapi.http.login2fa import Login2FA
-from iqoptionapi.http.send_sms import SMS_Sender
-from iqoptionapi.http.verify import Verify
 from iqoptionapi.http.login import Login
 from iqoptionapi.http.loginv2 import Loginv2
 from iqoptionapi.http.logout import Logout
+from iqoptionapi.http.login2fa import Login2FA
+from iqoptionapi.http.send_sms import SMS_Sender
+from iqoptionapi.http.verify import Verify
 from iqoptionapi.http.getprofile import Getprofile
 from iqoptionapi.http.auth import Auth
 from iqoptionapi.http.token import Token
@@ -34,7 +34,7 @@ from iqoptionapi.ws.chanels.buyv2 import Buyv2
 from iqoptionapi.ws.chanels.buyv3 import *
 from iqoptionapi.ws.chanels.user import *
 from iqoptionapi.ws.chanels.api_game_betinfo import Game_betinfo
-from iqoptionapi.ws.chanels.instruments import Get_instruments, GetDigitalInstruments
+from iqoptionapi.ws.chanels.instruments import Get_instruments
 from iqoptionapi.ws.chanels.get_financial_information import GetFinancialInformation
 from iqoptionapi.ws.chanels.strike_list import Strike_list
 from iqoptionapi.ws.chanels.leaderboard import Leader_Board
@@ -151,8 +151,8 @@ class IQOptionAPI(object):  # pylint: disable=too-many-instance-attributes
     user_profile_client = None
     leaderboard_userinfo_deals_client = None
     users_availability = None
-    digital_payout = None
     # ------------------
+    digital_payout = None
 
     def __init__(self, host, username, password, proxies=None):
         """
@@ -234,8 +234,8 @@ class IQOptionAPI(object):  # pylint: disable=too-many-instance-attributes
         """
         logger = logging.getLogger(__name__)
 
-        logger.debug(method+": "+url+" headers: "+str(self.session.headers) +
-                     " cookies: "+str(self.session.cookies.get_dict()))
+        logger.debug(method + ": " + url + " headers: " + str(self.session.headers) +
+                     " cookies:  " + str(self.session.cookies.get_dict()))
 
         response = self.session.request(method=method,
                                         url=url,
@@ -297,33 +297,6 @@ class IQOptionAPI(object):  # pylint: disable=too-many-instance-attributes
         return Login(self)
 
     @property
-    def loginv2(self):
-        """Property for get IQ Option http loginv2 resource.
-
-        :returns: The instance of :class:`Loginv2
-            <iqoptionapi.http.loginv2.Loginv2>`.
-        """
-        return Loginv2(self)
-
-    @property
-    def auth(self):
-        """Property for get IQ Option http auth resource.
-
-        :returns: The instance of :class:`Auth
-            <iqoptionapi.http.auth.Auth>`.
-        """
-        return Auth(self)
-
-    @property
-    def appinit(self):
-        """Property for get IQ Option http appinit resource.
-
-        :returns: The instance of :class:`Appinit
-            <iqoptionapi.http.appinit.Appinit>`.
-        """
-        return Appinit(self)
-
-    @property
     def login_2fa(self):
         """Property for get IQ Option http login 2FA resource.
 
@@ -349,6 +322,33 @@ class IQOptionAPI(object):  # pylint: disable=too-many-instance-attributes
             <iqoptionapi.http.verify.Verify>`.
         """
         return Verify(self)
+
+    @property
+    def loginv2(self):
+        """Property for get IQ Option http loginv2 resource.
+
+        :returns: The instance of :class:`Loginv2
+            <iqoptionapi.http.loginv2.Loginv2>`.
+        """
+        return Loginv2(self)
+
+    @property
+    def auth(self):
+        """Property for get IQ Option http auth resource.
+
+        :returns: The instance of :class:`Auth
+            <iqoptionapi.http.auth.Auth>`.
+        """
+        return Auth(self)
+
+    @property
+    def appinit(self):
+        """Property for get IQ Option http appinit resource.
+
+        :returns: The instance of :class:`Appinit
+            <iqoptionapi.http.appinit.Appinit>`.
+        """
+        return Appinit(self)
 
     @property
     def token(self):
@@ -415,6 +415,7 @@ class IQOptionAPI(object):  # pylint: disable=too-many-instance-attributes
         """
         return Getprofile(self)
 # for active code ...
+
     @property
     def get_balances(self):
         """Property for get IQ Option http getprofile resource.
@@ -442,6 +443,7 @@ class IQOptionAPI(object):  # pylint: disable=too-many-instance-attributes
         """
         return Ssid(self)
 # --------------------------------------------------------------------------------
+
     @property
     def Subscribe_Live_Deal(self):
         return Subscribe_live_deal(self)
@@ -808,7 +810,7 @@ class IQOptionAPI(object):  # pylint: disable=too-many-instance-attributes
         try:
             if self.token_login2fa is None:
                 response = self.login(
-                    self.username, self.password)# pylint: disable=not-callable
+                    self.username, self.password)  # pylint: disable=not-callable
             else:
                 response = self.login_2fa(
                     self.username, self.password, self.token_login2fa)
@@ -827,7 +829,6 @@ class IQOptionAPI(object):  # pylint: disable=too-many-instance-attributes
         if self.profile.msg == False:
             return False
         else:
-            global_value.user_id = self.profile.msg['user_id']
             return True
 
     def connect(self):
@@ -916,10 +917,6 @@ class IQOptionAPI(object):  # pylint: disable=too-many-instance-attributes
         return Get_users_availability(self)
 
     @property
-    def get_digital_instruments(self):
-        return GetDigitalInstruments(self)
-
-    @property
     def subscribe_digital_price_splitter(self):
         return SubscribeDigitalPriceSplitter(self)
 
@@ -930,4 +927,3 @@ class IQOptionAPI(object):  # pylint: disable=too-many-instance-attributes
     @property
     def place_digital_option_v2(self):
         return DigitalOptionsPlaceDigitalOptionV2(self)
-        
