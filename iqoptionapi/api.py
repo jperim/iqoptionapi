@@ -821,6 +821,7 @@ class IQOptionAPI(object):  # pylint: disable=too-many-instance-attributes
         return response
 
     def send_ssid(self):
+        global_value.user_id = None
         self.profile.msg = None
         self.ssid(global_value.SSID)  # pylint: disable=not-callable
         while self.profile.msg == None:
