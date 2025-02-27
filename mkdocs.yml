@@ -1,47 +1,45 @@
 site_name: iqoptionapi document
-repo_name: "iqoptionapi"
-repo_url: "https://github.com/iqoptionapi/iqoptionapi"
-site_url: "https://iqoptionapi.github.io/iqoptionapi/"
-docs_dir: "doc/"
-site_dir: "docs/"
+#repo_name: 'THU-DBLAB/IRBRL'
+#repo_url: 'https://github.com/THU-DBLAB/IRBRL'
+#site_url: 'https://thu-dblab.github.io/IRBRL/'
+edit_uri: "" # this code say do not view edit on page
 extra:
+ # disqus: 'lu-yi-hsun'
   search:
-    language: "pt-br"
+    language: 'jp'
     #-tokenizer: '[\a\-\.]+'
   social:
-    - icon: "fontawesome/brands/github"
-      link: "https://github.com/iqoptionapi/iqoptionapi"
+    - type: 'github'
+      link: 'https://github.com/Lu-Yi-Hsun/'
+    - type: 'facebook'
+      link: 'https://www.facebook.com/profile.php?id=100001559307331'
+    #- type: 'twitter'
+      #link: 'https://twitter.com/squidfunk'
+   # - type: 'linkedin'
+     # link: 'https://linkedin.com/in/squidfunk'
+    
 
-plugins:
-  - search:
-      lang:
-        - pt
-        - en
-        - es
 theme:
   language: "en"
-  logo: "logo.png"
-  name: "material" #readthedocs/readthedocs
-  custom_dir: doc/theme/material
-  icon: assets/images/favicon.png
+  name: 'material' #readthedocs/readthedocs
   palette:
-    primary: "indigo"
-    accent: "Blue Grey"
-  features:
+    primary: 'indigo'
+    accent: 'Blue Grey'
+  feature:
     tabs: false
   font:
-    text: "Roboto"
-    code: "Roboto Mono"
+    text: 'Roboto'
+    code: 'Roboto Mono'
   favicon: image/icon/iq.ico
+  
 
 # Extensions
 markdown_extensions:
   - footnotes
-  - codehilite
   - markdown.extensions.admonition
-  #  - markdown.extensions.codehilite:
-  #     guess_lang: false
-  #     linenums: true
+#  - markdown.extensions.codehilite:
+ #     guess_lang: false
+ #     linenums: true
   - markdown.extensions.def_list
   - markdown.extensions.footnotes
   - markdown.extensions.meta
@@ -55,7 +53,7 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
-
+   
   - pymdownx.inlinehilite
   - pymdownx.magiclink
   - pymdownx.mark
@@ -64,37 +62,16 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
-
+  
 extra_javascript:
-  - "javascripts/extra.js"
-  - "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js"
+ - 'javascripts/extra.js'
+ - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js'
 
 nav:
-  - Home: index.md
-  - English:
-      - Get Start: en/index.md
-      - Account: en/account/account.md
-      - For all: en/all/all.md
-      - Binary option: en/binary option/binary option.md
-      - Digital: en/digital/digital.md
-      - Foreign exchange futures: en/fef/fef.md
-      - candle: en/candle/candle.md
-      - Techincal Analysis: en/techinical analysis/index.md
-  - Portugues:
-      - Primeiros Passos: pt/index.md
-      - Conta: pt/account/account.md
-      - para Todos: pt/all/all.md
-      - Opções Binarias: pt/binary option/binary option.md
-      - Digital: pt/digital/digital.md
-      - Forex, Cripto, Ações, Commodities e Fundos: pt/fef/fef.md
-      - candle: pt/candle/candle.md
-      - Techincal Analysis: pt/techinical analysis/index.md
-  - Espanol:
-      - Empezar: es/index.md
-      - Cuenta: es/account/account.md
-      - Para todo: es/all/all.md
-      - Opciones Binarias: es/binary option/binary option.md
-      - Digital: es/digital/digital.md
-      - Furutos de divisas: es/fef/fef.md
-      - Velas: es/candle/candle.md
-      - Análisis técnico: es/techinical analysis/index.md
+  - Get start: index.md
+  - account: account/account.md
+  - for all: all/all.md
+  - binary option: binary option/binary option.md
+  - digital: digital/digital.md
+  - foreign exchange futures: fef/fef.md
+  - candle: candle/candle.md

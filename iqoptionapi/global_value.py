@@ -12,5 +12,3 @@ check_websocket_if_error=False
 websocket_error_reason=None
 
 balance_id=None
-
-user_id=None
